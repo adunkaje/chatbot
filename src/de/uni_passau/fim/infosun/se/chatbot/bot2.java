@@ -4,7 +4,11 @@
  * and open the template in the editor.
  */
 package de.uni_passau.fim.infosun.se.chatbot;
+import de.uni_passau.fim.infosun.se.chatbot.action.*;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 public class bot2 extends javax.swing.JFrame {
    
@@ -24,9 +28,10 @@ public class bot2 extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         label1 = new java.awt.Label();
-        text = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        TaMessage = new javax.swing.JTextArea();
         jLabel2 = new javax.swing.JLabel();
-        intext = new javax.swing.JTextField();
+        tfinputmassage = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
 
@@ -35,24 +40,22 @@ public class bot2 extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        text.setText("\n");
-        text.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textActionPerformed(evt);
-            }
-        });
-        getContentPane().add(text, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 90, 410, 300));
+        TaMessage.setColumns(20);
+        TaMessage.setRows(5);
+        jScrollPane1.setViewportView(TaMessage);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 90, 400, 300));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
-        jLabel2.setText("Chat Room");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 10, 200, 60));
+        jLabel2.setText("Bot noi");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 10, 120, 60));
 
-        intext.addActionListener(new java.awt.event.ActionListener() {
+        tfinputmassage.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                intextActionPerformed(evt);
+                tfinputmassageActionPerformed(evt);
             }
         });
-        getContentPane().add(intext, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 400, 320, 30));
+        getContentPane().add(tfinputmassage, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 400, 320, 30));
 
         jButton1.setBackground(new java.awt.Color(204, 204, 204));
         jButton1.setText("Send");
@@ -71,16 +74,38 @@ public class bot2 extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+            List<Action> handlers = new ArrayList<>();
+        handlers.add(new WeatherAction());
+        handlers.add(new DateTimeAction());
+        handlers.add(new MensaAction());
+        handlers.add(new ExitAction());
+        handlers.add(new HelpAction());
+        handlers.add(new NameAction());
+        handlers.add(new LoveAction());
+        handlers.add(new HelloAction());
+        handlers.add(new DefaultAction());
         
+        Scanner input = new Scanner(System.in);
+        boolean active = true;
+        
+        while (active) {
+            
+           
+            String request = tfinputmassage.getText().toLowerCase();
+            for (Action action : handlers) {
+                if (action.accept(request)) {
+                    active = action.run(request, System.out);
+                    break;
+                }
+            }
+        }
+
+        input.close();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void intextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_intextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_intextActionPerformed
-
-    private void textActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textActionPerformed
-          
-    }//GEN-LAST:event_textActionPerformed
+    private void tfinputmassageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfinputmassageActionPerformed
+       
+    }//GEN-LAST:event_tfinputmassageActionPerformed
 
     /**
      * @param args the command line arguments
@@ -116,15 +141,19 @@ public class bot2 extends javax.swing.JFrame {
             }
         });
         
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField intext;
+    private javax.swing.JTextArea TaMessage;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JScrollPane jScrollPane1;
     private java.awt.Label label1;
-    private javax.swing.JTextField text;
+    private javax.swing.JTextField tfinputmassage;
     // End of variables declaration//GEN-END:variables
+
+    
 }

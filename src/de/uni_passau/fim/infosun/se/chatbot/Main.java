@@ -1,4 +1,4 @@
-package de.uni_passau.fim.infosun.se.chatbot;
+ package de.uni_passau.fim.infosun.se.chatbot;
 
 import de.uni_passau.fim.infosun.se.chatbot.action.*;
 

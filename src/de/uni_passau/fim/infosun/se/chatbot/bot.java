@@ -132,6 +132,7 @@ public class bot extends javax.swing.JFrame {
        bot2 t =  new bot2();
        t.show();
        this.hide();
+       
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
